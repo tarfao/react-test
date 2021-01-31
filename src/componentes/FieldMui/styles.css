@@ -5,8 +5,12 @@
 .container-field{
     min-width: 199px;
     background-color: #fff;
-    padding: 5px;
+    padding: 10px;
     border-radius: 10px;
+}
+
+label{
+    font-size: 15pt !important;
 }
 
 @media(max-width: 800px){

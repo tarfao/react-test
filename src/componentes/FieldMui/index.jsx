@@ -2,7 +2,7 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from "@material-
 import './styles.css'
 
 function FieldMui({
-    name, value, onChange, items = [], label, type
+    name, value, onChange, items = [], label, type, error, messageError
 }) {
     return (
         <div className='container-field'>
@@ -16,14 +16,22 @@ function FieldMui({
                             onChange={onChange}
                         >
                             {items.map((item, index) => (
-                                <MenuItem key={index} value={item.value}>{item.value}</MenuItem>
+                                <MenuItem key={index} value={item.value}>{item.name}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
                 ) :
                 (
                     <FormControl className='formcontrol'>
-                        <TextField value={value} name={name} type={type} label={label} onChange={onChange} />
+                        <TextField 
+                        error={error} 
+                        value={value} 
+                        name={name} 
+                        type={type} 
+                        label={label} 
+                        onChange={onChange}
+                        helperText={error ? messageError : ''}
+                        />
                     </FormControl>
                 )}
         </div>
