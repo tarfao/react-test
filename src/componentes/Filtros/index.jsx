@@ -17,7 +17,6 @@ function Filtros() {
 
     const getFiltros = async () => {
         const { data } = await axios.get("http://www.mocky.io/v2/5a25fade2e0000213aa90776");
-        console.log(data);
         const locales = data.filters.find(f => f.id === 'locale');
         const countrys = data.filters.find(f => f.id === 'country');
         const limits = data.filters.find(f => f.id === 'limit');
@@ -38,7 +37,8 @@ function Filtros() {
         getFiltros();
     }, [])
 
-    return (
+    //como o offset eh populado por ultimo, eu valido se ele ja foi populado, para enfim renderizar os inputs
+    return offset.id ? (
         <div className='container-filtros'>
             <FieldMui
                 items={country.values}
@@ -71,7 +71,7 @@ function Filtros() {
                 type="number"
             />
         </div>
-    )
+    ) : ( <h3>Carregando...</h3> )
 }
 
 export default Filtros;
