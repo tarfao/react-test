@@ -1,0 +1,11 @@
+body{
+    font-family: spotify-circular,spotify-circular-cyrillic,spotify-circular-arabic,spotify-circular-hebrew,Helvetica Neue,helvetica,arial,Hiragino Kaku Gothic Pro,Meiryo,MS Gothic,sans-serif;
+    background-color: #181818;
+    color: #ffffff;
+}
+
+h1 {
+    font-weight: 900;
+    font-size: 80px;
+    text-align: center;
+}

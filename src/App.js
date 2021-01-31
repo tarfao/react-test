@@ -1,7 +1,12 @@
+import Filtros from "./componentes/Filtros";
+
 function App() {
   return (
     <div>
-      <h1>Hello World!</h1>
+      <h1>Playlists preferidas dos clientes</h1>
+      <hr />
+      <Filtros />
+      <hr />
     </div>
   );
 }

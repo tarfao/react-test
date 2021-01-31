@@ -1,0 +1,16 @@
+.formcontrol{
+    width: 100%;
+}
+
+.container-field{
+    min-width: 199px;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+@media(max-width: 800px){
+    .container-field{
+        margin-bottom: 20px;
+    }
+}
