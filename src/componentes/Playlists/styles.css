@@ -1,6 +1,13 @@
-.container-playlist {
+.message-spotify{
+    text-align: center;
+    font-size: 50px;
+    font-weight: 900;
+}
+
+.container-playlist-albums {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 60px;
+    flex-wrap: wrap;
 }

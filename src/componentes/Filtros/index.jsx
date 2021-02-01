@@ -3,7 +3,7 @@ import axios from 'axios';
 import FieldMui from '../FieldMui';
 import './styles.css';
 
-function Filtros() {
+function Filtros({ setDataPlaylists }) {
     const [values, setValues] = useState({})
     const [country, setCountry] = useState({});
     const [locale, setLocale] = useState({});
