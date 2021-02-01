@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Filtros from "./componentes/Filtros";
 import Playlists from "./componentes/Playlists";
+import { dados } from "./dadosStatic";
 
 function App() {
-  const [dataPlaylists, setDataPlaylists] = useState([])
+  const [dataPlaylists, setDataPlaylists] = useState(dados)
 
   return (
     <div>

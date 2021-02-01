@@ -1,9 +1,19 @@
+import ImgPlaylist from '../ImgPlaylist';
 import './styles.css'
 
 function Playlists({ dados }) {
     return (
         <div className='container-playlist'>
-            {dados.length > 0 ? (<h3>Playlists</h3>) : (<h3>Nenhuma playlist encontrada!</h3>)}
+            {
+                dados.message ?
+                    (
+                        <div>
+                            <h2>{dados.message}</h2>
+                            <ImgPlaylist />
+                        </div>
+                    ) :
+                    (<h3>Nenhuma playlist encontrada!</h3>)
+            }
         </div>
     )
 }
