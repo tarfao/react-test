@@ -5,15 +5,21 @@ import Playlists from "./componentes/Playlists";
 import consts from "./consts";
 
 function App() {
-  const [dataPlaylists, setDataPlaylists] = useState({})
+  const [dataPlaylists, setDataPlaylists] = useState({ carregando: false })
 
   const getDataPlaylists = async () => {
-    const { data } = await axios.get(consts.url_dados, {
-      headers: {
-        Authorization: `Bearer ${consts.token}`
-      }
-    })
-    setDataPlaylists(data);
+    try {
+      setDataPlaylists({ carregando: true })
+      const { data } = await axios.get(consts.url_dados, {
+        headers: {
+          Authorization: `Bearer ${consts.token}`
+        }
+      })
+      setDataPlaylists({ ...data, carregando: false });
+    } catch (error) {
+      setDataPlaylists({ carregando: false })
+      console.error(error);
+    }
   }
 
   useEffect(() => {
@@ -24,7 +30,7 @@ function App() {
     <div>
       <h1>Playlists preferidas dos clientes</h1>
       <hr />
-      <Filtros setDataPlaylists={setDataPlaylists}/>
+      <Filtros setDataPlaylists={setDataPlaylists} />
       <hr />
       <Playlists dados={dataPlaylists} />
     </div>

@@ -12,52 +12,63 @@ function Filtros({ setDataPlaylists }) {
     const [offset, setOffset] = useState({});
 
     const handleChange = async e => {
-        const { value, name } = e.target;
-        setValues({ ...values, [name]: value });
-        let URI = consts.url_dados;
-        const nameData = ['country', 'locale', 'limit', 'offset'];
-        let interrogacaoAdd = false;
-        await nameData.map(n => {
-            if (n !== name && values[n]) {
+        try {
+            const { value, name } = e.target;
+            setValues({ ...values, [name]: value });
+            setDataPlaylists({ carregando: true })
+            let URI = consts.url_dados;
+            const nameData = ['country', 'locale', 'limit', 'offset'];
+            let interrogacaoAdd = false;
+            await nameData.map(n => {
+                if (n !== name && values[n]) {
+                    if (interrogacaoAdd) {
+                        URI = `${URI}&${n}=${values[n]}`
+                    } else {
+                        URI = `${URI}?${n}=${values[n]}`
+                        interrogacaoAdd = true;
+                    }
+                }
+            })
+            if (value) {
                 if (interrogacaoAdd) {
-                    URI = `${URI}&${n}=${values[n]}`
+                    URI = `${URI}&${name}=${value}`
                 } else {
-                    URI = `${URI}?${n}=${values[n]}`
-                    interrogacaoAdd = true;
+                    URI = `${URI}?${name}=${value}`
                 }
             }
-        })
-        if (value) {
-            if (interrogacaoAdd) {
-                URI = `${URI}&${name}=${value}`
-            }else{
-                URI = `${URI}?${name}=${value}`
-            }
+            const { data } = await axios.get(URI, {
+                headers: {
+                    Authorization: `Bearer ${consts.token}`
+                }
+            })
+            setDataPlaylists({ ...data, carregando: false });
+        } catch (error) {
+            setDataPlaylists({ carregando: false })
+            console.error(error);
+            alert(error.response.data.error.message)
         }
-        const { data } = await axios.get(URI, {
-            headers: {
-                Authorization: `Bearer ${consts.token}`
-            }
-        })
-        setDataPlaylists(data);
     }
 
     const getFiltros = async () => {
-        const { data } = await axios.get(consts.url_filtros);
-        const locales = data.filters.find(f => f.id === 'locale');
-        const countrys = data.filters.find(f => f.id === 'country');
-        const limits = data.filters.find(f => f.id === 'limit');
-        const offsets = data.filters.find(f => f.id === 'offset');
-        setValues({
-            [locales.id]: '',
-            [countrys.id]: '',
-            [limits.id]: '',
-            [offsets.id]: ''
-        })
-        setLocale(locales);
-        setCountry(countrys);
-        setLimit(limits);
-        setOffset(offsets);
+        try {
+            const { data } = await axios.get(consts.url_filtros);
+            const locales = data.filters.find(f => f.id === 'locale');
+            const countrys = data.filters.find(f => f.id === 'country');
+            const limits = data.filters.find(f => f.id === 'limit');
+            const offsets = data.filters.find(f => f.id === 'offset');
+            setValues({
+                [locales.id]: '',
+                [countrys.id]: '',
+                [limits.id]: '',
+                [offsets.id]: ''
+            })
+            setLocale(locales);
+            setCountry(countrys);
+            setLimit(limits);
+            setOffset(offsets);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     useEffect(() => {
