@@ -11,9 +11,35 @@ function Filtros({ setDataPlaylists }) {
     const [limit, setLimit] = useState({});
     const [offset, setOffset] = useState({});
 
-    const handleChange = e => {
+    const handleChange = async e => {
         const { value, name } = e.target;
         setValues({ ...values, [name]: value });
+        let URI = consts.url_dados;
+        const nameData = ['country', 'locale', 'limit', 'offset'];
+        let interrogacaoAdd = false;
+        await nameData.map(n => {
+            if (n !== name && values[n]) {
+                if (interrogacaoAdd) {
+                    URI = `${URI}&${n}=${values[n]}`
+                } else {
+                    URI = `${URI}?${n}=${values[n]}`
+                    interrogacaoAdd = true;
+                }
+            }
+        })
+        if (value) {
+            if (interrogacaoAdd) {
+                URI = `${URI}&${name}=${value}`
+            }else{
+                URI = `${URI}?${name}=${value}`
+            }
+        }
+        const { data } = await axios.get(URI, {
+            headers: {
+                Authorization: `Bearer ${consts.token}`
+            }
+        })
+        setDataPlaylists(data);
     }
 
     const getFiltros = async () => {
@@ -72,7 +98,7 @@ function Filtros({ setDataPlaylists }) {
                 type="number"
             />
         </div>
-    ) : ( <h3>Carregando...</h3> )
+    ) : (<h3>Carregando...</h3>)
 }
 
 export default Filtros;

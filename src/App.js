@@ -13,7 +13,6 @@ function App() {
         Authorization: `Bearer ${consts.token}`
       }
     })
-    console.log(data);
     setDataPlaylists(data);
   }
 
