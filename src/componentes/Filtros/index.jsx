@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import FieldMui from '../FieldMui';
 import './styles.css';
+import consts from '../../consts';
 
 function Filtros({ setDataPlaylists }) {
     const [values, setValues] = useState({})
@@ -16,7 +17,7 @@ function Filtros({ setDataPlaylists }) {
     }
 
     const getFiltros = async () => {
-        const { data } = await axios.get("http://www.mocky.io/v2/5a25fade2e0000213aa90776");
+        const { data } = await axios.get(consts.url_filtros);
         const locales = data.filters.find(f => f.id === 'locale');
         const countrys = data.filters.find(f => f.id === 'country');
         const limits = data.filters.find(f => f.id === 'limit');
