@@ -52,7 +52,7 @@ function App() {
 
   return (
     <AppContext.Provider value={{ token }}>
-      <h1>Playlists preferidas dos clientes</h1>
+      <h1>Playlis&shy;ts preferi&shy;das dos clientes</h1>
       <hr />
       <Filtros setDataPlaylists={setDataPlaylists} />
       <hr />

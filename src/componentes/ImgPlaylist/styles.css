@@ -9,6 +9,10 @@
     transition: all 0.5s ease;
 }
 
+img{
+    width: 400px;
+}
+
 img:hover {
     width: 450px;
 }
@@ -31,4 +35,10 @@ img:after{
 .container-description>h3 {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 20px;
+}
+
+@media(max-width: 800px){
+    img{
+        width: 300px;
+    }
 }
