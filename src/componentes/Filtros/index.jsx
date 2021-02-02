@@ -13,11 +13,8 @@ function Filtros({ setDataPlaylists }) {
     const [offset, setOffset] = useState({});
     const { token } = useContext(AppContext)
 
-    const handleChange = async e => {
+    const getURI = (name, value) => new Promise(async (resolve, reject) => {
         try {
-            const { value, name } = e.target;
-            setValues({ ...values, [name]: value });
-            setDataPlaylists({ carregando: true })
             let URI = consts.url_dados;
             const nameData = ['country', 'locale', 'limit', 'offset'];
             let interrogacaoAdd = false;
@@ -38,6 +35,18 @@ function Filtros({ setDataPlaylists }) {
                     URI = `${URI}?${name}=${value}`
                 }
             }
+            resolve(URI)
+        } catch (error) {
+            reject(error)
+        }
+    })
+
+    const handleChange = async e => {
+        try {
+            const { value, name } = e.target;
+            setValues({ ...values, [name]: value });
+            setDataPlaylists({ carregando: true })
+            const URI = await getURI(name, value)
             const { data } = await axios.get(URI, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -76,6 +85,30 @@ function Filtros({ setDataPlaylists }) {
     useEffect(() => {
         getFiltros();
     }, [])
+
+    /*o useEffect sem o listen no token, nao consegue 
+    obte-lo populado, e sem o values não consegue obter 
+    os dados atuais de busca */
+    useEffect(() => {
+        if (token) {
+            const interval = setInterval(async () => {
+                try {
+                    setDataPlaylists({ carregando: true });
+                    const URI = await getURI();
+                    const { data } = await axios.get(URI, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+                    setDataPlaylists({ ...data, carregando: false });
+                } catch (error) {
+                    setDataPlaylists({ carregando: false })
+                    console.error(error);
+                }
+            }, 30000)
+            return () => clearInterval(interval)
+        }
+    }, [token, values])
 
     //como o offset eh populado por ultimo, eu valido se ele ja foi populado, para enfim renderizar os inputs
     return offset.id ? (
