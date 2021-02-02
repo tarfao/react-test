@@ -10,10 +10,12 @@ function App() {
   const [dataPlaylists, setDataPlaylists] = useState({ carregando: false })
   const [token, setToken] = useState('');
 
-  const getToken = async () => {
+  const getDataPlaylists = async () => {
     try {
+      setDataPlaylists({ carregando: true }) //informando a aplicação que estamos buscando os dados
+      //busco o token do spotify
       const dados_body = { grant_type: "client_credentials" }
-      const { data } = await axios({
+      const { data: { access_token } } = await axios({
         method: 'POST',
         url: consts.url_token,
         headers: {
@@ -22,31 +24,22 @@ function App() {
         },
         data: qs.stringify(dados_body),
       })
-      setToken(data.access_token)
-      console.log(data)
-    } catch (error) {
-      console.error(error);
-    }
-
-  }
-
-  const getDataPlaylists = async () => {
-    try {
-      setDataPlaylists({ carregando: true })
+      setToken(access_token)
+      //faço a requisição inicial com base no token obtido
       const { data } = await axios.get(consts.url_dados, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${access_token}`
         }
       })
       setDataPlaylists({ ...data, carregando: false });
     } catch (error) {
-      setDataPlaylists({ carregando: false })
+      setDataPlaylists({ carregando: false });
+      setToken("");
       console.error(error);
     }
   }
 
   useEffect(() => {
-    getToken()
     getDataPlaylists();
   }, [])
 
