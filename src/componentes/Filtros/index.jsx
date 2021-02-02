@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import FieldMui from '../FieldMui';
+import AppContext from '../../AppContext';
 import './styles.css';
 import consts from '../../consts';
 
@@ -10,6 +11,7 @@ function Filtros({ setDataPlaylists }) {
     const [locale, setLocale] = useState({});
     const [limit, setLimit] = useState({});
     const [offset, setOffset] = useState({});
+    const { token } = useContext(AppContext)
 
     const handleChange = async e => {
         try {
@@ -38,7 +40,7 @@ function Filtros({ setDataPlaylists }) {
             }
             const { data } = await axios.get(URI, {
                 headers: {
-                    Authorization: `Bearer ${consts.token}`
+                    Authorization: `Bearer ${token}`
                 }
             })
             setDataPlaylists({ ...data, carregando: false });
