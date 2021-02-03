@@ -1,8 +1,16 @@
-# Run
+# Sobre
 
-Clone the repository then run:
+* A playlist inicial exibida, é uma playlist obtida apenas com base em todos os países, pois nenhum parâmetro inicial foi setado.
+
+* A cada 30 segundos, uma nova requisição é feita, com base nos filtros, e caso o token tenha expirado, um novo token é requisitado, e a próxima requisição terá sucesso!
+
+# Execução
+
+Clone o repositório e execute no terminal os seguintes comandos:
 * `npm install`
 * `npm start`
+
+então terá o resultado:
 
 # MM React Test
 
