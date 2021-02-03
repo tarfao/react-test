@@ -12,7 +12,8 @@ Clone o repositório e execute no terminal os seguintes comandos:
 * `npm install`
 * `npm start`
 
-então terá o resultado:
+então terá o seguinte resultado:
+![alt text](https://github.com/tarfao/react-test/blob/main/exemplo_imagem.png)
 
 # MM React Test
 
