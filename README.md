@@ -1,3 +1,9 @@
+# Run
+
+Clone the repository then run:
+* `npm install`
+* `npm start`
+
 # MM React Test
 
 Create a web and app application used to display the preferred playlists from customers. The web application has only one page:
