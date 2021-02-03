@@ -4,6 +4,8 @@
 
 * A cada 30 segundos, uma nova requisição é feita, com base nos filtros, e caso o token tenha expirado, um novo token é requisitado, e a próxima requisição terá sucesso!
 
+* OBS: A API que informa os possíveis valores dos filtros, aparentemente está com um equívoco para o código dos Estados Unidos, e por conta disso a aplicação exibe um erro em um alert.
+
 # Execução
 
 Clone o repositório e execute no terminal os seguintes comandos:
