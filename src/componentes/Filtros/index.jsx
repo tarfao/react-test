@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import FieldMui from '../FieldMui';
 import './styles.css';
 import UseFiltros from './UseFiltros';
+import { getToken } from '../utils';
 
 function Filtros({ setDataPlaylists }) {
-    const { 
+    const {
         getFiltros, token, getURI, values, country, offset, handleChange,
-        locale, limit,
+        locale, limit, setToken
     } = UseFiltros(setDataPlaylists);
 
     useEffect(() => {
@@ -30,6 +31,10 @@ function Filtros({ setDataPlaylists }) {
                     });
                     setDataPlaylists({ ...data, carregando: false });
                 } catch (error) {
+                    if (error.response.data.error.message === "The access token expired") {
+                        const access_token = await getToken();
+                        setToken(access_token);
+                    }
                     setDataPlaylists({ carregando: false })
                     console.error(error);
                 }

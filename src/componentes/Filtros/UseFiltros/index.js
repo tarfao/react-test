@@ -9,7 +9,7 @@ function UseFiltros(setDataPlaylists) {
     const [locale, setLocale] = useState({});
     const [limit, setLimit] = useState({});
     const [offset, setOffset] = useState({});
-    const { token } = useContext(AppContext)
+    const { token, setToken } = useContext(AppContext)
 
     //OBJETIVO: buscar com base nos dados inseridos nos filtros, como deve o endereço de chamada a API
     const getURI = (name, value) => new Promise(async (resolve, reject) => {
@@ -85,7 +85,7 @@ function UseFiltros(setDataPlaylists) {
 
     return {
         getFiltros, token, getURI, values, country, offset, handleChange,
-        locale, limit,
+        locale, limit, setToken
     }
 }
 

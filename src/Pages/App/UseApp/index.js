@@ -1,6 +1,6 @@
 import axios from 'axios';
-import qs from 'qs'
 import { useState } from 'react';
+import { getToken } from '../../../componentes/utils';
 import consts from '../../../consts';
 
 function UseApp() {
@@ -12,16 +12,7 @@ function UseApp() {
         try {
             setDataPlaylists({ carregando: true }) //informando a aplicação que estamos buscando os dados
             //busco o token do spotify
-            const dados_body = { grant_type: "client_credentials" }
-            const { data: { access_token } } = await axios({
-                method: 'POST',
-                url: consts.url_token,
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded',
-                    Authorization: `Basic ${consts.auth_secret}` //autho para conseguir um novo token
-                },
-                data: qs.stringify(dados_body),
-            })
+            const access_token = await getToken();
             setToken(access_token)
             //faço a requisição inicial com base no token obtido
             const { data } = await axios.get(consts.url_dados, {
@@ -38,7 +29,7 @@ function UseApp() {
     }
 
     return {
-        getDataPlaylists, token, setDataPlaylists, dataPlaylists
+        getDataPlaylists, token, setDataPlaylists, dataPlaylists, setToken
     }
 }
 
