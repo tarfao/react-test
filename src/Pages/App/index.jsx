@@ -3,6 +3,7 @@ import Filtros from "../../componentes/Filtros";
 import Playlists from "../../componentes/Playlists";
 import AppContext from './AppContext';
 import UseApp from "./UseApp";
+import './styles.css'
 
 function App() {
   const { 
@@ -16,7 +17,7 @@ function App() {
 
   return (
     <AppContext.Provider value={{ token, setToken }}>
-      <h1>Playlis&shy;ts preferi&shy;das dos clientes</h1>
+      <h1 className='titulo-principal'>Playlis&shy;ts preferi&shy;das dos clientes</h1>
       <hr />
       <Filtros setDataPlaylists={setDataPlaylists} />
       <hr />
